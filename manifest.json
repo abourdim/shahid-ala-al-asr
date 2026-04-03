@@ -1,0 +1,12 @@
+{
+  "name": "Ghazali: Witness of the Era — شاهد على العصر",
+  "short_name": "شاهد على العصر",
+  "description": "Interactive trilingual app about Sheikh Mohammed al-Ghazali's life, legacy, and ideas",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6A1B9A",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": []
+}
