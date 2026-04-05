@@ -406,30 +406,30 @@ function cycleTheme() {
   const idx = (THEMES.indexOf(currentTheme) + 1) % THEMES.length;
   currentTheme = THEMES[idx];
   document.documentElement.dataset.theme = currentTheme;
-  document.getElementById('themeIcon').textContent = THEME_ICONS[currentTheme];
+  { const _e=document.getElementById('themeIcon'); if(_e) _e.textContent=THEME_ICONS[currentTheme]; }
   playSound('theme');
 }
 
 // ═══════════════ RENDER ALL ═══════════════
 function renderAll() {
   const t = T[lang];
-  document.getElementById('appTitle').textContent = t.appTitle;
-  document.getElementById('splashSub').textContent = t.splashSub;
-  document.getElementById('splashHint').textContent = t.splashHint;
-  document.getElementById('tabHome').textContent = t.tabHome;
-  document.getElementById('tabCards').textContent = t.tabCards;
-  document.getElementById('tabQuiz').textContent = t.tabQuiz;
-  document.getElementById('tabProgress').textContent = t.tabProgress;
-  document.getElementById('tabAbout').textContent = t.tabAbout;
-  document.getElementById('cardsTitle').textContent = t.cardsTitle;
-  document.getElementById('cardsDesc').textContent = t.cardsDesc;
-  document.getElementById('quizTitle').textContent = t.quizTitle;
-  document.getElementById('quizDesc').textContent = t.quizDesc;
-  document.getElementById('progressTitle').textContent = t.progressTitle;
-  document.getElementById('progressDesc').textContent = t.progressDesc;
-  document.getElementById('helpTitle').textContent = t.helpTitle;
-  document.getElementById('duaPanelTitle').textContent = t.duaPanelTitle;
-  document.getElementById('ageModeBtn').textContent = ageMode === 'young' ? t.youngMode : t.teenMode;
+  { const _e=document.getElementById('appTitle'); if(_e) _e.textContent=t.appTitle; }
+  { const _e=document.getElementById('splashSub'); if(_e) _e.textContent=t.splashSub; }
+  { const _e=document.getElementById('splashHint'); if(_e) _e.textContent=t.splashHint; }
+  { const _e=document.getElementById('tabHome'); if(_e) _e.textContent=t.tabHome; }
+  { const _e=document.getElementById('tabCards'); if(_e) _e.textContent=t.tabCards; }
+  { const _e=document.getElementById('tabQuiz'); if(_e) _e.textContent=t.tabQuiz; }
+  { const _e=document.getElementById('tabProgress'); if(_e) _e.textContent=t.tabProgress; }
+  { const _e=document.getElementById('tabAbout'); if(_e) _e.textContent=t.tabAbout; }
+  { const _e=document.getElementById('cardsTitle'); if(_e) _e.textContent=t.cardsTitle; }
+  { const _e=document.getElementById('cardsDesc'); if(_e) _e.textContent=t.cardsDesc; }
+  { const _e=document.getElementById('quizTitle'); if(_e) _e.textContent=t.quizTitle; }
+  { const _e=document.getElementById('quizDesc'); if(_e) _e.textContent=t.quizDesc; }
+  { const _e=document.getElementById('progressTitle'); if(_e) _e.textContent=t.progressTitle; }
+  { const _e=document.getElementById('progressDesc'); if(_e) _e.textContent=t.progressDesc; }
+  { const _e=document.getElementById('helpTitle'); if(_e) _e.textContent=t.helpTitle; }
+  { const _e=document.getElementById('duaPanelTitle'); if(_e) _e.textContent=t.duaPanelTitle; }
+  { const _e=document.getElementById('ageModeBtn'); if(_e) _e.textContent=ageMode === 'young' ? t.youngMode : t.teenMode; }
   renderHome();
   renderCards();
   renderProgress();
@@ -444,12 +444,12 @@ function renderHome() {
   const dayIdx = new Date().getDate() % CARDS.length;
   const card = CARDS[dayIdx];
   const d = card[lang];
-  document.getElementById('dailyCard').innerHTML = `
+  (document.getElementById('dailyCard')||{}).innerHTML= `
     <div class="daily-label">${t.dailyLabel}</div>
     <div class="daily-title">${card.emoji} ${d.title}</div>
     <div class="daily-body">${ageMode === 'young' ? d.young : d.desc}</div>
     <div class="daily-action" onclick="switchTab('cards');toggleCard('card-${card.id}')">${t.readMore} &#8594;</div>`;
-  document.getElementById('homeGrid').innerHTML = CARDS.map(c => {
+  (document.getElementById('homeGrid')||{}).innerHTML= CARDS.map(c => {
     const dd = c[lang];
     return `<div class="home-card" onclick="switchTab('cards');toggleCard('card-${c.id}')">
       <span class="hc-icon">${c.emoji}</span>
@@ -666,7 +666,7 @@ function showQuizResult() {
     emoji = '🌱';
     title = lang==='ar'?'واصل التعلم!':lang==='fr'?'Continue d\'apprendre !':'Keep Learning!';
   }
-  document.getElementById('quizContainer').innerHTML = '';
+  (document.getElementById('quizContainer')||{}).innerHTML= '';
   const result = document.getElementById('quizResult');
   result.classList.remove('hidden');
   result.innerHTML = `
@@ -692,7 +692,7 @@ function renderProgress() {
   const nextBadge = BADGE_DEFS.find(b => !earned.includes(b.id));
   const nextXP = nextBadge ? nextBadge.xp : 1000;
   const progressPct = Math.min(100, (xp / nextXP) * 100);
-  document.getElementById('progressContainer').innerHTML = `
+  (document.getElementById('progressContainer')||{}).innerHTML= `
     <div class="progress-xp-card">
       <div class="xp-header">
         <span class="xp-icon">⭐</span>
@@ -741,11 +741,11 @@ function updateXPDisplay() {
 }
 
 // ═══════════════ RENDER: ABOUT ═══════════════
-function renderAbout() { const about = { ar: { disclaimerTitle: '⚠️ تنبيه مهم', disclaimer: 'لست عالماً ولا مفتياً. هذا جهد متواضع من مسلم يحب كتب الشيخ الغزالي. المحتوى مستمد من مصادر موثوقة عن حياة الشيخ.', authorName: 'الشيخ محمد الغزالي', authorDates: '١٩١٧ — ١٩٩٦', authorBio: 'عالم ومفكر إسلامي مصري، لُقب بـ"أديب الدعوة". وُلد في البحيرة وتعلم في الأزهر. ألّف ٩٤ كتاباً. درّس في مصر والسعودية وقطر والجزائر. حاصل على جائزة الملك فيصل. توفي في الرياض عام ١٩٩٦.', bookTitle: 'عن الكتاب', bookDesc: '«الشيخ محمد الغزالي شاهداً على العصر» كتاب يروي سيرة الشيخ محمد الغزالي ومحطات حياته العلمية والدعوية والفكرية. يستعرض تجربته مع الأزهر والإخوان والتدريس والتأليف ومواقفه من قضايا العصر.', sourcesTitle: 'المصادر', sources: ['كتاب "الشيخ محمد الغزالي شاهداً على العصر"','مؤلفات الشيخ محمد الغزالي','موسوعة أعلام الفكر الإسلامي'], contact: 'تواصل: abdelhak.bourdim@gmail.com' }, en: { disclaimerTitle: '⚠️ Important Notice', disclaimer: 'I am not a scholar or mufti. This is a humble effort by a Muslim who loves Sheikh al-Ghazali\'s books. Content is from trusted biographical sources.', authorName: 'Sheikh Mohammed al-Ghazali', authorDates: '1917 — 1996', authorBio: 'Egyptian Islamic scholar and thinker, nicknamed "The Literary Preacher." Born in Beheira, educated at Al-Azhar. Author of 94 books. Taught in Egypt, Saudi Arabia, Qatar, and Algeria. King Faisal Prize laureate. Passed away in Riyadh in 1996.', bookTitle: 'About the Book', bookDesc: '"Sheikh Mohammed al-Ghazali: Witness of the Era" narrates the biography of Sheikh al-Ghazali and the milestones of his scholarly, preaching, and intellectual life. It reviews his experience with Al-Azhar, the Brotherhood, teaching, writing, and his positions on contemporary issues.', sourcesTitle: 'Sources', sources: ['"Sheikh al-Ghazali: Witness of the Era"','Works of Sheikh Mohammed al-Ghazali','Encyclopedia of Islamic Thought Leaders'], contact: 'Contact: abdelhak.bourdim@gmail.com' }, fr: { disclaimerTitle: '⚠️ Avis Important', disclaimer: 'Je ne suis ni savant ni mufti. C\'est un effort humble d\'un musulman qui aime les livres du Sheikh al-Ghazali.', authorName: 'Sheikh Mohammed al-Ghazali', authorDates: '1917 — 1996', authorBio: 'Savant et penseur islamique égyptien, surnommé "Le Littéraire de la Prédication". Né à Beheira, formé à Al-Azhar. Auteur de 94 livres. A enseigné en Égypte, Arabie Saoudite, Qatar et Algérie. Lauréat du Prix Roi Faysal.', bookTitle: 'À Propos du Livre', bookDesc: '« Le Sheikh al-Ghazali : Témoin de l\'Époque » raconte la biographie du Sheikh et les étapes de sa vie scientifique, de prédication et intellectuelle.', sourcesTitle: 'Sources', sources: ['"Le Sheikh al-Ghazali : Témoin de l\'Époque"','Oeuvres du Sheikh Mohammed al-Ghazali','Encyclopédie des Penseurs Islamiques'], contact: 'Contact : abdelhak.bourdim@gmail.com' } }; const a = about[lang]; document.getElementById('aboutContainer').innerHTML = `<div class="about-disclaimer"><div class="about-disclaimer-title">${a.disclaimerTitle}</div><p>${a.disclaimer}</p></div><div class="about-author"><span class="about-author-icon">📚</span><div class="about-author-info"><div class="about-author-name">${a.authorName}</div><div class="about-author-dates">${a.authorDates}</div><div class="about-author-bio">${a.authorBio}</div></div></div><div class="about-section"><div class="about-section-title">${a.bookTitle}</div><p class="about-text">${a.bookDesc}</p></div><div class="about-section"><div class="about-section-title">${a.sourcesTitle}</div>${a.sources.map(s => `<p class="about-text">&#8226; ${s}</p>`).join('')}</div><div class="about-section"><p class="about-text">${a.contact}</p></div>`; }
+function renderAbout() { const about = { ar: { disclaimerTitle: '⚠️ تنبيه مهم', disclaimer: 'لست عالماً ولا مفتياً. هذا جهد متواضع من مسلم يحب كتب الشيخ الغزالي. المحتوى مستمد من مصادر موثوقة عن حياة الشيخ.', authorName: 'الشيخ محمد الغزالي', authorDates: '١٩١٧ — ١٩٩٦', authorBio: 'عالم ومفكر إسلامي مصري، لُقب بـ"أديب الدعوة". وُلد في البحيرة وتعلم في الأزهر. ألّف ٩٤ كتاباً. درّس في مصر والسعودية وقطر والجزائر. حاصل على جائزة الملك فيصل. توفي في الرياض عام ١٩٩٦.', bookTitle: 'عن الكتاب', bookDesc: '«الشيخ محمد الغزالي شاهداً على العصر» كتاب يروي سيرة الشيخ محمد الغزالي ومحطات حياته العلمية والدعوية والفكرية. يستعرض تجربته مع الأزهر والإخوان والتدريس والتأليف ومواقفه من قضايا العصر.', sourcesTitle: 'المصادر', sources: ['كتاب "الشيخ محمد الغزالي شاهداً على العصر"','مؤلفات الشيخ محمد الغزالي','موسوعة أعلام الفكر الإسلامي'], contact: 'تواصل: abdelhak.bourdim@gmail.com' }, en: { disclaimerTitle: '⚠️ Important Notice', disclaimer: 'I am not a scholar or mufti. This is a humble effort by a Muslim who loves Sheikh al-Ghazali\'s books. Content is from trusted biographical sources.', authorName: 'Sheikh Mohammed al-Ghazali', authorDates: '1917 — 1996', authorBio: 'Egyptian Islamic scholar and thinker, nicknamed "The Literary Preacher." Born in Beheira, educated at Al-Azhar. Author of 94 books. Taught in Egypt, Saudi Arabia, Qatar, and Algeria. King Faisal Prize laureate. Passed away in Riyadh in 1996.', bookTitle: 'About the Book', bookDesc: '"Sheikh Mohammed al-Ghazali: Witness of the Era" narrates the biography of Sheikh al-Ghazali and the milestones of his scholarly, preaching, and intellectual life. It reviews his experience with Al-Azhar, the Brotherhood, teaching, writing, and his positions on contemporary issues.', sourcesTitle: 'Sources', sources: ['"Sheikh al-Ghazali: Witness of the Era"','Works of Sheikh Mohammed al-Ghazali','Encyclopedia of Islamic Thought Leaders'], contact: 'Contact: abdelhak.bourdim@gmail.com' }, fr: { disclaimerTitle: '⚠️ Avis Important', disclaimer: 'Je ne suis ni savant ni mufti. C\'est un effort humble d\'un musulman qui aime les livres du Sheikh al-Ghazali.', authorName: 'Sheikh Mohammed al-Ghazali', authorDates: '1917 — 1996', authorBio: 'Savant et penseur islamique égyptien, surnommé "Le Littéraire de la Prédication". Né à Beheira, formé à Al-Azhar. Auteur de 94 livres. A enseigné en Égypte, Arabie Saoudite, Qatar et Algérie. Lauréat du Prix Roi Faysal.', bookTitle: 'À Propos du Livre', bookDesc: '« Le Sheikh al-Ghazali : Témoin de l\'Époque » raconte la biographie du Sheikh et les étapes de sa vie scientifique, de prédication et intellectuelle.', sourcesTitle: 'Sources', sources: ['"Le Sheikh al-Ghazali : Témoin de l\'Époque"','Oeuvres du Sheikh Mohammed al-Ghazali','Encyclopédie des Penseurs Islamiques'], contact: 'Contact : abdelhak.bourdim@gmail.com' } }; const a = about[lang]; (document.getElementById('aboutContainer')||{}).innerHTML= `<div class="about-disclaimer"><div class="about-disclaimer-title">${a.disclaimerTitle}</div><p>${a.disclaimer}</p></div><div class="about-author"><span class="about-author-icon">📚</span><div class="about-author-info"><div class="about-author-name">${a.authorName}</div><div class="about-author-dates">${a.authorDates}</div><div class="about-author-bio">${a.authorBio}</div></div></div><div class="about-section"><div class="about-section-title">${a.bookTitle}</div><p class="about-text">${a.bookDesc}</p></div><div class="about-section"><div class="about-section-title">${a.sourcesTitle}</div>${a.sources.map(s => `<p class="about-text">&#8226; ${s}</p>`).join('')}</div><div class="about-section"><p class="about-text">${a.contact}</p></div>`; }
 
 // ═══════════════ RENDER: HELP, DUAS, TICKER ═══════════════
-function renderHelp() { const help = { ar: [ {title:'⚠️ تنبيه',body:'لست عالماً. هذا جهد متواضع لتعريف الشباب بسيرة الشيخ الغزالي بطريقة تفاعلية.'}, {title:'📚 المصادر',body:'كتاب "الشيخ محمد الغزالي شاهداً على العصر"، مؤلفات الشيخ، مصادر موثوقة.'}, {title:'✨ المميزات',body:'ثلاث لغات، ٣ أنماط، ٢٠ محطة، ١٥ سؤالاً، ٨ أدعية، مسابقة تفاعلية، نظام نقاط وشارات.'}, {title:'🌟 وضع مستكشف صغير',body:'للأطفال ٧-١٢ سنة — نصوص مبسطة.'}, {title:'📖 وضع باحث شاب',body:'للشباب ١٣+ — نصوص كاملة مع تفاصيل تاريخية.'}, {title:'🤝 المساهمة',body:'GitHub: github.com/abourdim/shahid-ala-al-asr'}, ], en: [ {title:'⚠️ Disclaimer',body:'I am not a scholar. This is a humble effort to introduce youth to Sheikh al-Ghazali\'s biography interactively.'}, {title:'📚 Sources',body:'"Sheikh al-Ghazali: Witness of the Era", his works, and trusted biographical sources.'}, {title:'✨ Features',body:'Three languages, 3 themes, 20 milestones, 15 quiz questions, 8 duas, interactive quiz, XP and badges.'}, {title:'🌟 Young Explorer',body:'For kids 7-12 — simplified text with emojis.'}, {title:'📖 Teen Scholar',body:'For teens 13+ — full text with historical details.'}, {title:'🤝 Contributing',body:'GitHub: github.com/abourdim/shahid-ala-al-asr'}, ], fr: [ {title:'⚠️ Avertissement',body:'Je ne suis pas un savant. C\'est un effort humble pour présenter la biographie du Sheikh al-Ghazali aux jeunes.'}, {title:'📚 Sources',body:'"Le Sheikh al-Ghazali : Témoin de l\'Époque", ses oeuvres et des sources biographiques fiables.'}, {title:'✨ Fonctionnalités',body:'Trois langues, 3 thèmes, 20 étapes, 15 questions, 8 duas, quiz interactif, système XP et badges.'}, {title:'🌟 Jeune Explorateur',body:'Pour enfants 7-12 ans — texte simplifié.'}, {title:'📖 Jeune Chercheur',body:'Pour ados 13+ — texte complet avec détails historiques.'}, {title:'🤝 Contribuer',body:'GitHub : github.com/abourdim/shahid-ala-al-asr'}, ] }; document.getElementById('helpBody').innerHTML = help[lang].map(h => `<div class="help-item"><div class="help-item-title">${h.title}</div><div>${h.body}</div></div>`).join(''); }
-function renderDuas() { document.getElementById('duaPanelContent').innerHTML = DUAS.map(d => { const dd = d[lang]; return `<div class="dua-item"><div class="dua-item-label">${dd.label}</div><div class="dua-item-ar">${dd.text}</div><div class="dua-item-tr">${dd.tr}</div></div>`; }).join(''); }
+function renderHelp() { const help = { ar: [ {title:'⚠️ تنبيه',body:'لست عالماً. هذا جهد متواضع لتعريف الشباب بسيرة الشيخ الغزالي بطريقة تفاعلية.'}, {title:'📚 المصادر',body:'كتاب "الشيخ محمد الغزالي شاهداً على العصر"، مؤلفات الشيخ، مصادر موثوقة.'}, {title:'✨ المميزات',body:'ثلاث لغات، ٣ أنماط، ٢٠ محطة، ١٥ سؤالاً، ٨ أدعية، مسابقة تفاعلية، نظام نقاط وشارات.'}, {title:'🌟 وضع مستكشف صغير',body:'للأطفال ٧-١٢ سنة — نصوص مبسطة.'}, {title:'📖 وضع باحث شاب',body:'للشباب ١٣+ — نصوص كاملة مع تفاصيل تاريخية.'}, {title:'🤝 المساهمة',body:'GitHub: github.com/abourdim/shahid-ala-al-asr'}, ], en: [ {title:'⚠️ Disclaimer',body:'I am not a scholar. This is a humble effort to introduce youth to Sheikh al-Ghazali\'s biography interactively.'}, {title:'📚 Sources',body:'"Sheikh al-Ghazali: Witness of the Era", his works, and trusted biographical sources.'}, {title:'✨ Features',body:'Three languages, 3 themes, 20 milestones, 15 quiz questions, 8 duas, interactive quiz, XP and badges.'}, {title:'🌟 Young Explorer',body:'For kids 7-12 — simplified text with emojis.'}, {title:'📖 Teen Scholar',body:'For teens 13+ — full text with historical details.'}, {title:'🤝 Contributing',body:'GitHub: github.com/abourdim/shahid-ala-al-asr'}, ], fr: [ {title:'⚠️ Avertissement',body:'Je ne suis pas un savant. C\'est un effort humble pour présenter la biographie du Sheikh al-Ghazali aux jeunes.'}, {title:'📚 Sources',body:'"Le Sheikh al-Ghazali : Témoin de l\'Époque", ses oeuvres et des sources biographiques fiables.'}, {title:'✨ Fonctionnalités',body:'Trois langues, 3 thèmes, 20 étapes, 15 questions, 8 duas, quiz interactif, système XP et badges.'}, {title:'🌟 Jeune Explorateur',body:'Pour enfants 7-12 ans — texte simplifié.'}, {title:'📖 Jeune Chercheur',body:'Pour ados 13+ — texte complet avec détails historiques.'}, {title:'🤝 Contribuer',body:'GitHub : github.com/abourdim/shahid-ala-al-asr'}, ] }; (document.getElementById('helpBody')||{}).innerHTML= help[lang].map(h => `<div class="help-item"><div class="help-item-title">${h.title}</div><div>${h.body}</div></div>`).join(''); }
+function renderDuas() { (document.getElementById('duaPanelContent')||{}).innerHTML= DUAS.map(d => { const dd = d[lang]; return `<div class="dua-item"><div class="dua-item-label">${dd.label}</div><div class="dua-item-ar">${dd.text}</div><div class="dua-item-tr">${dd.tr}</div></div>`; }).join(''); }
 function renderTicker() { const tips = { ar: ['📖 اقرأ محطة جديدة كل يوم','🏆 اجمع النقاط واربح الشارات','🌟 جرب وضع المستكشف الصغير','🤲 لا تنسَ الدعاء','⭐ أكمل ٢٠ محطة لتصبح خبيراً'], en: ['📖 Read a new milestone every day','🏆 Collect points and earn badges','🌟 Try Young Explorer mode','🤲 Don\'t forget dua','⭐ Complete all 20 milestones to become Expert'], fr: ['📖 Lisez une nouvelle étape chaque jour','🏆 Collectez des points et gagnez des badges','🌟 Essayez le mode Jeune Explorateur','🤲 N\'oubliez pas les duas','⭐ Complétez les 20 étapes pour devenir Expert'] }; const items = tips[lang]; const doubled = [...items, ...items]; const ticker = document.getElementById('tickerText'); ticker.innerHTML = doubled.map(t => `<span class="tc">&nbsp;&nbsp;${t}&nbsp;&nbsp;•</span>`).join(''); ticker.style.animation = `tickerMarquee ${items.length * 6}s linear infinite`; }
 
 // ═══════════════ SPLASH, TABS, SCROLL, KEYBOARD, UTILITIES ═══════════════
@@ -799,6 +799,10 @@ function switchTab(name) {
     });
     initTypewriter();
   }, 100);
+  // Auto-render quiz when switching to quiz tab
+  if (name === 'quiz' && document.getElementById('quizContainer') && !document.getElementById('quizContainer').innerHTML.trim()) {
+    renderQuiz();
+  }
 }
 
 function initScrollReveal() {
